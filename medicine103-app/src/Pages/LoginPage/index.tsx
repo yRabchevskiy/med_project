@@ -1,12 +1,16 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { LoginBg, LoginForm } from "./style";
+import { BgImage, LoginBg, LoginForm } from "./style";
 import { authFb } from "../../firebase-config";
 import { useAuth } from "../../Contexts/Auth/authContext";
+import TextInput from "../../Components/Inputs/TextInput";
+import PasswordInput from "../../Components/Inputs/PasswordInput";
 // import { IUser } from "../../Models/user";
 
 const LoginPage: React.FC<{}> = () => {
+  const [login, setLogin] = React.useState<string>('');
+  const [pass, setPass] = React.useState<string>('');
   let navigate = useNavigate();
   let location = useLocation();
   let auth = useAuth();
@@ -17,7 +21,6 @@ const LoginPage: React.FC<{}> = () => {
     let login = formData.get("login") as string;
     let password = formData.get("password") as string;
     if (!login || !password) return;
-    debugger
     signInWithEmailAndPassword(authFb, login, password)
       .then((userCredential) => {
         // Signed in
@@ -33,20 +36,37 @@ const LoginPage: React.FC<{}> = () => {
       });
   };
 
+  const onChange = (v: string, f: string) => {
+    if (f === 'login') {
+      setLogin(v);
+      return;
+    }
+    setPass(v);
+  }
+
   return (
     <LoginBg>
+      <BgImage />
       <LoginForm onSubmit={onSignIn} autoComplete="new-password">
-        <div>
-          <label>Login</label>
-          <input autoComplete="new-password" name="login" type="text" />
-        </div>
-        <div>
-          <label>Password</label>
-          <input autoComplete="new-password" name="password" type="password" />
-        </div>
+        <TextInput
+          label="Login"
+          value={login}
+          name="login"
+          type="email"
+          // error={login}
+          onChange={v => onChange(v, 'login')}
+          wrapStyle={{ marginBottom: '20px' }}
+        />
+        <PasswordInput
+          label="Password"
+          value={pass}
+          name="password"
+          // error={login}
+          onChange={v => onChange(v, 'password')}
+          wrapStyle={{ marginBottom: '20px' }}
+        />
         <button type="submit">Login</button>
       </LoginForm>
-
     </LoginBg>
   );
 };
