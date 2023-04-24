@@ -24,8 +24,8 @@ const Header: React.FC<Props> = (props: Props) => {
   return (
     <Wrapper>
       <LinksWrapper>
-        <LinkNav to="/">Home Page</LinkNav>
-        <LinkNav to="/teem">Teem Page</LinkNav>
+        <LinkNav to="/">Home</LinkNav>
+        <LinkNav to="/medicine">Medicine</LinkNav>
       </LinksWrapper>
       <button onClick={handleLogOut}>Log out</button>
     </Wrapper>

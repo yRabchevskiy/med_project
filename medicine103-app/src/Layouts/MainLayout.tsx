@@ -1,13 +1,14 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Main, Wrapper } from './style';
-import Header from '../Components/Header';
+// import Header from '../Components/Header';
+import UserNavPanel from '../Components/UserNavPanel';
 
 function MainLayout() {
   
   return (
     <Wrapper>
-      <Header />
+      <UserNavPanel />
       <Main><Outlet /></Main>
     </Wrapper>
   );

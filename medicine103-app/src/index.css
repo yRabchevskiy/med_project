@@ -24,3 +24,15 @@ html, body {
 a {
   text-decoration: none;
 }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+td, th {
+  border-bottom: 1px solid #ebebeb;
+  padding: 4px 8px;
+  white-space: normal;
+  text-align: left;
+  vertical-align: top;
+}

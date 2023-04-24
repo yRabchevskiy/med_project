@@ -1,32 +1,37 @@
 import React from "react";
 import { AppAuthProvider } from "./auth";
-import { IUser } from "../../Models/user";
+import { User } from "firebase/auth";
+import { ICurrentUser } from "../../Models/user";
 
 
 interface AuthContextType {
-  user: IUser | null;
-  signin: (data: IUser, callback: VoidFunction) => void;
+  token: string | null;
+  currentUser: ICurrentUser | null;
+  signin: (user: User, callback: VoidFunction) => void;
   signout: (callback: VoidFunction) => void;
+  // onSetCurrentUser: (_user: IUser | null) => void;
 }
 
 let AuthContext = React.createContext<AuthContextType>(null!);
 
-const getUserFromLocalStorage = (): IUser | null => {
+const getUserFromLocalStorage = (): ICurrentUser | null => {
   const _u = localStorage.getItem('MED_USER');
   if (!_u) return null;
   return JSON.parse(_u);
 };
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  let [user, setUser] = React.useState<IUser | null>(getUserFromLocalStorage());
+  let [token, setToken] = React.useState<string | null>(null);
+  let [currentUser, setCurrentUser] = React.useState<ICurrentUser | null>(getUserFromLocalStorage());
 
-  let signin = (data: IUser, callback: VoidFunction) => {
-    if (!data) return;
-    if (data) {
-      localStorage.setItem('MED_USER', JSON.stringify(data));
+  let signin = (user: User, callback: VoidFunction) => {
+    if (!user) return;
+    if (user) {
+      localStorage.setItem('MED_USER', JSON.stringify({ email: user.email, uid: user.uid }));
     }
     return AppAuthProvider.signin(() => {
-      setUser(data);
+      setToken(user.refreshToken);
+      setCurrentUser({ email: user.email, uid: user.uid });
       callback();
     });
   };
@@ -34,12 +39,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   let signout = (callback: VoidFunction) => {
     localStorage.removeItem('MED_USER');
     return AppAuthProvider.signout(() => {
-      setUser(null);
+      setToken(null);
       callback();
     });
   };
 
-  let value = { user, signin, signout };
+  let value = { token, currentUser, signin, signout };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
