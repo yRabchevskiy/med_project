@@ -12,4 +12,5 @@ export const Main = styled.main`
   margin-left: 80px;
   z-index: 1;
   padding: 12px 24px;
+  overflow: auto;
 `;

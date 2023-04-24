@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Wrapper = styled.article`
-  position: fixed;
+  position: absolute;
+  height: 100%;
   top: 0;
   left: 0;
   z-index: 2;
@@ -10,7 +11,7 @@ export const Wrapper = styled.article`
 `;
 
 export const ContentWrapper = styled.div`
-  height: 100vh;
+  height: 100%;
   width: 80vw;
   max-width: 72px;
   display: flex;
