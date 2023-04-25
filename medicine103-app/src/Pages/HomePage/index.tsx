@@ -57,7 +57,7 @@ const HomePage: React.FC<Props> = (props: Props) => {
           </tbody>
         </table>
       </div>
-      {openUserModal && <ModalWindow onClose={onCloseUserModal}></ModalWindow>}
+      {openUserModal && <ModalWindow title="Create user" onClose={onCloseUserModal}></ModalWindow>}
     </>
   );
 };

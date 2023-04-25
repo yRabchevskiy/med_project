@@ -1,11 +1,12 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../../Contexts/Auth/authContext";
-import { ContentWrapper, LinkNav, LinksWrapper, Toggle, User, Wrapper } from "./style";
+import { AccountIcon, AccountLabel, ContentWrapper, LinksWrapper, Toggle, AccountWrapper, Wrapper } from "./style";
 import { signOut } from "firebase/auth";
 import { authFb } from "../../firebase-config";
 import IconButton from "../Buttons/IconButton";
-import { logoutIcon } from "../../Images/icons";
+import { accountIcon, logoutIcon, medicineIcon, usersIcon } from "../../Images/icons";
+import NavLink from "../Links/NavLink";
 interface Props { }
 
 const UserNavPanel: React.FC<Props> = (props: Props) => {
@@ -32,10 +33,13 @@ const UserNavPanel: React.FC<Props> = (props: Props) => {
   return (
     <Wrapper>
       <ContentWrapper className={open ? 'open' : ''}>
-        <User>{auth.currentUser?.email}</User>
+        <AccountWrapper>
+          <AccountIcon>{accountIcon}</AccountIcon>
+          <AccountLabel title={auth.currentUser?.email ? auth.currentUser?.email : ''}>{auth.currentUser?.email}</AccountLabel>
+        </AccountWrapper>
         <LinksWrapper>
-          <LinkNav to="/">Home</LinkNav>
-          <LinkNav to="/medicine">Medicine</LinkNav>
+          <NavLink route="/" icon={usersIcon} label="Users" />
+          <NavLink route="/medicine" icon={medicineIcon} label="Medicine" />
         </LinksWrapper>
         <IconButton styles={{ border: "none", margin: '0 auto' }} onClick={handleLogOut}>{logoutIcon}</IconButton>
         <Toggle onClick={onToggleOpen} />

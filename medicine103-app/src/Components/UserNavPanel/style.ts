@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Wrapper = styled.article`
@@ -29,12 +28,37 @@ export const ContentWrapper = styled.div`
   }
 `;
 
-export const User = styled.div`
-  white-space: nowrap;
-  line-height: 40px;
-  height: 40px;
-  margin-bottom: 12px;
+export const AccountWrapper = styled.div`
+  display: flex;
+  margin-bottom: 20px;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
   overflow: hidden;
+  align-items: center;
+`;
+
+export const AccountIcon = styled.span`
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: inline-flex;
+  flex-shrink: 0;
+  svg {
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+  }
+`;
+
+export const AccountLabel = styled.span`
+  white-space: nowrap;
+  margin-left: 16px;
+  font-weight: 600;
+  font-size: 20px;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
 `;
 
 export const LinksWrapper = styled.div`
@@ -43,14 +67,6 @@ export const LinksWrapper = styled.div`
   margin-bottom: auto;
   flex-wrap: nowrap;
   overflow: hidden;
-`;
-
-
-export const LinkNav = styled(Link)`
-  /* display: inline-block;
-  height: 100%;
-  padding: 4px;
-  line-height: 11px; */
 `;
 
 export const Toggle = styled.span`
