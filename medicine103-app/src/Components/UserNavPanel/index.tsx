@@ -5,7 +5,7 @@ import { AccountIcon, AccountLabel, ContentWrapper, LinksWrapper, Toggle, Accoun
 import { signOut } from "firebase/auth";
 import { authFb } from "../../firebase-config";
 import IconButton from "../Buttons/IconButton";
-import { accountIcon, logoutIcon, medicineIcon, usersIcon } from "../../Images/icons";
+import { accountIcon, logoutIcon, inventoryIcon, usersIcon, warehouseIcon } from "../../Images/icons";
 import NavLink from "../Links/NavLink";
 interface Props { }
 
@@ -39,7 +39,8 @@ const UserNavPanel: React.FC<Props> = (props: Props) => {
         </AccountWrapper>
         <LinksWrapper>
           <NavLink route="/" icon={usersIcon} label="Users" />
-          <NavLink route="/medicine" icon={medicineIcon} label="Medicine" />
+          <NavLink route="/warehouse" icon={warehouseIcon} label="Warehouse" />
+          <NavLink route="/inventory" icon={inventoryIcon} label="Inventory" />
         </LinksWrapper>
         <IconButton styles={{ border: "none", margin: '0 auto' }} onClick={handleLogOut}>{logoutIcon}</IconButton>
         <Toggle onClick={onToggleOpen} />

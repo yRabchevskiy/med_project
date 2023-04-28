@@ -12,7 +12,7 @@ interface AuthContextType {
   // onSetCurrentUser: (_user: IUser | null) => void;
 }
 
-let AuthContext = React.createContext<AuthContextType>(null!);
+const AuthContext = React.createContext<AuthContextType>(null!);
 
 const getUserFromLocalStorage = (): ICurrentUser | null => {
   const _u = localStorage.getItem('MED_USER');

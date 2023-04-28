@@ -1,22 +1,26 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { IUser } from "../../Models/user";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebase-config";
 import ModalWindow from "../../Components/ModalWindow";
+import { useGetCollection } from "../../Contexts/Api/api";
 interface Props { }
 const HomePage: React.FC<Props> = (props: Props) => {
   const [users, setUsers] = React.useState<IUser[] | null>(null);
   const [openUserModal, setUserModalState] = React.useState<boolean>(false);
+  const { response, loading, onGetCollection } = useGetCollection<IUser[]>();
 
   React.useEffect(() => {
     getUsers();
   }, []);
 
-  async function getUsers() {
-    const colRef = collection(db, "users");
-    const docs = await getDocs(colRef);
-    const _users = docs.docs.map(doc => doc.data());
-    setUsers(_users as IUser[]);
+  React.useEffect(() => {
+    if (response) {
+      setUsers(response);
+    }
+  }, [response]);
+
+  const getUsers = () => {
+    onGetCollection('users');
   };
 
   const onCreateUser = () => {
@@ -56,6 +60,7 @@ const HomePage: React.FC<Props> = (props: Props) => {
             ))}
           </tbody>
         </table>
+        {loading && <div>Loading</div>}
       </div>
       {openUserModal && <ModalWindow title="Create user" onClose={onCloseUserModal}></ModalWindow>}
     </>
