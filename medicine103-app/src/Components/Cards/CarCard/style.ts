@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device_L } from '../../../styles/global';
 
 export const CardWrapper = styled.div`
   display: flex;
@@ -10,7 +11,7 @@ export const CardWrapper = styled.div`
   flex-shrink: 0;
   border: 1px solid #000000;
   border-radius: 8px;
-  @media(max-width: 1024px) {
+  @media(max-width: ${device_L + 'px'}) {
     padding: 0 1em;
   }
 `;
